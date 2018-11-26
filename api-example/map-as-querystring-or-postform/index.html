@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gin Web Framework</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="generator" content="Hugo 0.52-DEV" />
+<title>Map as querystring or postform parameters :: Gin Web Framework</title>
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script src="/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/gin-gonic.com\/";
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/footer.css">
+<link rel="stylesheet" href="/css/content.css">
+<link rel="stylesheet" href="/css/buttons.css">
+<link rel="stylesheet" href="/css/feature-matrix.css">
+
+<style>
+  .shortcuts {
+    height: initial;
+    line-height: initial;
+  }
+
+  .nav i {
+    height: initial;
+  }
+
+  .tabs-body pre {
+    margin-top: 0;
+  }
+
+  ul:not(.browser-default) {
+    padding-left: 22.5px;
+    padding-right: 22.5px;
+  }
+
+  ul:not(.browser-default),
+  ul:not(.browser-default) > li {
+    list-style-type: initial;
+  }
+
+  ul.menu,
+  ul.menu ul {
+    padding: 0;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .menu *,
+  .menu a,
+  a {
+    color: #242A31;
+  }
+
+  .menu .dd-item.haschildren > div > a.highlight,
+  .menu > .dd-item > div > a.highlight {
+    color: #242A31;
+  }
+
+  .menu .dd-item a.highlight {
+    color: #9DAAB6;
+  }
+
+  .menu .dd-item.active > div > a.highlight {
+    color: #BF2A32;
+  }
+
+  section a {
+    color: #039be5;
+  }
+</style>
+
+
+    
+  </head>
+  <body data-url="/api-example/map-as-querystring-or-postform/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <p><a href="/"><img src="https://opencensus.io/img/logo-sm.svg" alt="Gin Logo" /> <span>G</span>in</a></p>
+
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+  <div class="header-survey">
+    <a class="survey-button btn btn-light" target="_blank" href="https://github.com/gin-gonic/gin/">GitHub repo</a>
+  </div>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+    <li data-nav-id="/introduction/" class="dd-item
+        ">
+      <div>
+      <a href="/introduction/">Introduction</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/quickstart/" class="dd-item
+        ">
+      <div>
+      <a href="/quickstart/">Quickstart</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/benchmarks/" class="dd-item
+        ">
+      <div>
+      <a href="/benchmarks/">Benchmarks</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/features/" class="dd-item
+        ">
+      <div>
+      <a href="/features/">Features</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/jsoniter/" class="dd-item
+        ">
+      <div>
+      <a href="/jsoniter/">Jsoniter</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/api-example/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/api-example/">API Example</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/api-example/ascii-json/" class="dd-item">
+        <div>
+          <a href="/api-example/ascii-json/">
+            AsciiJSON
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/bind-uri/" class="dd-item">
+        <div>
+          <a href="/api-example/bind-uri/">
+            Bind Uri
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/bind-form-data-request-with-custom-struct/" class="dd-item">
+        <div>
+          <a href="/api-example/bind-form-data-request-with-custom-struct/">
+            Bind form-data request with custom struct
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/bind-html-checkbox/" class="dd-item">
+        <div>
+          <a href="/api-example/bind-html-checkbox/">
+            Bind html checkboxes
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/bind-query-or-post/" class="dd-item">
+        <div>
+          <a href="/api-example/bind-query-or-post/">
+            Bind query string or post data
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/bind-single-binary-with-template/" class="dd-item">
+        <div>
+          <a href="/api-example/bind-single-binary-with-template/">
+            Build a single binary with templates
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/custom-http-config/" class="dd-item">
+        <div>
+          <a href="/api-example/custom-http-config/">
+            Custom HTTP configuration
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/custom-middleware/" class="dd-item">
+        <div>
+          <a href="/api-example/custom-middleware/">
+            Custom Middleware
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/custom-validators/" class="dd-item">
+        <div>
+          <a href="/api-example/custom-validators/">
+            Custom validators
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/define-format-for-the-log-of-routes/" class="dd-item">
+        <div>
+          <a href="/api-example/define-format-for-the-log-of-routes/">
+            Define format for the log of routes
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/goroutines-inside-a-middleware/" class="dd-item">
+        <div>
+          <a href="/api-example/goroutines-inside-a-middleware/">
+            Goroutines inside a middleware
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/graceful-restart-or-stop/" class="dd-item">
+        <div>
+          <a href="/api-example/graceful-restart-or-stop/">
+            Graceful restart or stop
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/grouping-routes/" class="dd-item">
+        <div>
+          <a href="/api-example/grouping-routes/">
+            Grouping routes
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/html-rendering/" class="dd-item">
+        <div>
+          <a href="/api-example/html-rendering/">
+            HTML rendering
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/http2-server-push/" class="dd-item">
+        <div>
+          <a href="/api-example/http2-server-push/">
+            HTTP2 server push
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/write-log/" class="dd-item">
+        <div>
+          <a href="/api-example/write-log/">
+            How to write log file
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/jsonp/" class="dd-item">
+        <div>
+          <a href="/api-example/jsonp/">
+            JSONP
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/map-as-querystring-or-postform/" class="dd-item active">
+        <div>
+          <a href="/api-example/map-as-querystring-or-postform/">
+            Map as querystring or postform parameters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/binding-and-validation/" class="dd-item">
+        <div>
+          <a href="/api-example/binding-and-validation/">
+            Model binding and validation
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/multipart-urlencoded-binding/" class="dd-item">
+        <div>
+          <a href="/api-example/multipart-urlencoded-binding/">
+            Multipart/Urlencoded binding
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/multipart-urlencoded-form/" class="dd-item">
+        <div>
+          <a href="/api-example/multipart-urlencoded-form/">
+            Multipart/Urlencoded form
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/multiple-template/" class="dd-item">
+        <div>
+          <a href="/api-example/multiple-template/">
+            Multitemplate
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/only-bind-query-string/" class="dd-item">
+        <div>
+          <a href="/api-example/only-bind-query-string/">
+            Only bind query string
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/param-in-path/" class="dd-item">
+        <div>
+          <a href="/api-example/param-in-path/">
+            Parameters in path
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/pure-json/" class="dd-item">
+        <div>
+          <a href="/api-example/pure-json/">
+            PureJSON
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/query-and-post-form/" class="dd-item">
+        <div>
+          <a href="/api-example/query-and-post-form/">
+            Query and post form
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/querystring-param/" class="dd-item">
+        <div>
+          <a href="/api-example/querystring-param/">
+            Query string parameters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/redirects/" class="dd-item">
+        <div>
+          <a href="/api-example/redirects/">
+            Redirects
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/run-multiple-service/" class="dd-item">
+        <div>
+          <a href="/api-example/run-multiple-service/">
+            Run multiple service
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/secure-json/" class="dd-item">
+        <div>
+          <a href="/api-example/secure-json/">
+            SecureJSON
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/serving-data-from-reader/" class="dd-item">
+        <div>
+          <a href="/api-example/serving-data-from-reader/">
+            Serving data from reader
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/serving-static-files/" class="dd-item">
+        <div>
+          <a href="/api-example/serving-static-files/">
+            Serving static files
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/cookie/" class="dd-item">
+        <div>
+          <a href="/api-example/cookie/">
+            Set and get a cookie
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/support-lets-encrypt/" class="dd-item">
+        <div>
+          <a href="/api-example/support-lets-encrypt/">
+            Support Let&#39;s Encrypt
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/bind-body-into-dirrerent-structs/" class="dd-item">
+        <div>
+          <a href="/api-example/bind-body-into-dirrerent-structs/">
+            Try to bind body into different structs
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/api-example/upload-file/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/api-example/upload-file/">Upload files</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/api-example/upload-file/multiple-file/" class="dd-item">
+        <div>
+          <a href="/api-example/upload-file/multiple-file/">
+            Multiple files
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/upload-file/single-file/" class="dd-item">
+        <div>
+          <a href="/api-example/upload-file/single-file/">
+            Single file
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/api-example/using-basicauth-middleware/" class="dd-item">
+        <div>
+          <a href="/api-example/using-basicauth-middleware/">
+            Using BasicAuth middleware
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/http-method/" class="dd-item">
+        <div>
+          <a href="/api-example/http-method/">
+            Using HTTP method
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/using-middleware/" class="dd-item">
+        <div>
+          <a href="/api-example/using-middleware/">
+            Using middleware
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/without-middleware/" class="dd-item">
+        <div>
+          <a href="/api-example/without-middleware/">
+            Without middleware by default
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/api-example/rendering/" class="dd-item">
+        <div>
+          <a href="/api-example/rendering/">
+            XML/JSON/YAML/ProtoBuf rendering
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/testing/" class="dd-item
+        ">
+      <div>
+      <a href="/testing/">Testing</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/users/" class="dd-item
+        ">
+      <div>
+      <a href="/users/">Users</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/faq/" class="dd-item
+        ">
+      <div>
+      <a href="/faq/">FAQ</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/cn/" class="dd-item
+        ">
+      <div>
+      <a href="/cn/">中文文档</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page ">
+    <div class="mobile-survey">
+      <a class="btn btn-light survey-button" target="_blank" href="https://github.com/gin-gonic/gin/">GitHub repo</a>
+    </div>
+    <div class="nav-select">
+      <center>Navigation :
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/introduction/" >
+   Introduction</option>
+    <option value="/quickstart/" >
+   Quickstart</option>
+    <option value="/benchmarks/" >
+   Benchmarks</option>
+    <option value="/features/" >
+   Features</option>
+    <option value="/jsoniter/" >
+   Jsoniter</option>
+    <option value="/api-example/" >
+   API Example</option> 
+      <option value="/api-example/ascii-json/" >- AsciiJSON</option>
+      <option value="/api-example/bind-uri/" >- Bind Uri</option>
+      <option value="/api-example/bind-form-data-request-with-custom-struct/" >- Bind form-data request with custom struct</option>
+      <option value="/api-example/bind-html-checkbox/" >- Bind html checkboxes</option>
+      <option value="/api-example/bind-query-or-post/" >- Bind query string or post data</option>
+      <option value="/api-example/bind-single-binary-with-template/" >- Build a single binary with templates</option>
+      <option value="/api-example/custom-http-config/" >- Custom HTTP configuration</option>
+      <option value="/api-example/custom-middleware/" >- Custom Middleware</option>
+      <option value="/api-example/custom-validators/" >- Custom validators</option>
+      <option value="/api-example/define-format-for-the-log-of-routes/" >- Define format for the log of routes</option>
+      <option value="/api-example/goroutines-inside-a-middleware/" >- Goroutines inside a middleware</option>
+      <option value="/api-example/graceful-restart-or-stop/" >- Graceful restart or stop</option>
+      <option value="/api-example/grouping-routes/" >- Grouping routes</option>
+      <option value="/api-example/html-rendering/" >- HTML rendering</option>
+      <option value="/api-example/http2-server-push/" >- HTTP2 server push</option>
+      <option value="/api-example/write-log/" >- How to write log file</option>
+      <option value="/api-example/jsonp/" >- JSONP</option>
+      <option value="/api-example/map-as-querystring-or-postform/"  selected>- Map as querystring or postform parameters</option>
+      <option value="/api-example/binding-and-validation/" >- Model binding and validation</option>
+      <option value="/api-example/multipart-urlencoded-binding/" >- Multipart/Urlencoded binding</option>
+      <option value="/api-example/multipart-urlencoded-form/" >- Multipart/Urlencoded form</option>
+      <option value="/api-example/multiple-template/" >- Multitemplate</option>
+      <option value="/api-example/only-bind-query-string/" >- Only bind query string</option>
+      <option value="/api-example/param-in-path/" >- Parameters in path</option>
+      <option value="/api-example/pure-json/" >- PureJSON</option>
+      <option value="/api-example/query-and-post-form/" >- Query and post form</option>
+      <option value="/api-example/querystring-param/" >- Query string parameters</option>
+      <option value="/api-example/redirects/" >- Redirects</option>
+      <option value="/api-example/run-multiple-service/" >- Run multiple service</option>
+      <option value="/api-example/secure-json/" >- SecureJSON</option>
+      <option value="/api-example/serving-data-from-reader/" >- Serving data from reader</option>
+      <option value="/api-example/serving-static-files/" >- Serving static files</option>
+      <option value="/api-example/cookie/" >- Set and get a cookie</option>
+      <option value="/api-example/support-lets-encrypt/" >- Support Let&#39;s Encrypt</option>
+      <option value="/api-example/bind-body-into-dirrerent-structs/" >- Try to bind body into different structs</option>
+    <option value="/api-example/upload-file/" >
+  - 
+   Upload files</option>
+      <option value="/api-example/using-basicauth-middleware/" >- Using BasicAuth middleware</option>
+      <option value="/api-example/http-method/" >- Using HTTP method</option>
+      <option value="/api-example/using-middleware/" >- Using middleware</option>
+      <option value="/api-example/without-middleware/" >- Without middleware by default</option>
+      <option value="/api-example/rendering/" >- XML/JSON/YAML/ProtoBuf rendering</option>
+  
+    <option value="/testing/" >
+   Testing</option>
+    <option value="/users/" >
+   Users</option>
+    <option value="/faq/" >
+   FAQ</option>
+    <option value="/cn/" >
+   中文文档</option>
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/js/auto-complete.js"></script>
+        <link href="/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/gin-gonic.com\/";
+          
+        </script>
+        <script type="text/javascript" src="/js/search.js"></script>
+      </div>
+
+
+    
+      <div class="header-container">
+        <h1>Map as querystring or postform parameters</h1>
+        
+      </div>
+    
+
+    
+    
+    
+    <div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">POST /post?ids<span style="color:#f92672">[</span>a<span style="color:#f92672">]=</span><span style="color:#ae81ff">1234</span><span style="color:#111">&amp;</span>ids<span style="color:#f92672">[</span>b<span style="color:#f92672">]=</span>hello HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+names<span style="color:#f92672">[</span>first<span style="color:#f92672">]=</span>thinkerou<span style="color:#111">&amp;</span>names<span style="color:#f92672">[</span>second<span style="color:#f92672">]=</span>tianou</code></pre></div><div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#00a8c8">func</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+	<span style="color:#75af00">router</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">gin</span><span style="color:#111">.</span><span style="color:#75af00">Default</span><span style="color:#111">()</span>
+
+	<span style="color:#75af00">router</span><span style="color:#111">.</span><span style="color:#75af00">POST</span><span style="color:#111">(</span><span style="color:#d88200">&#34;/post&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">func</span><span style="color:#111">(</span><span style="color:#75af00">c</span> <span style="color:#f92672">*</span><span style="color:#75af00">gin</span><span style="color:#111">.</span><span style="color:#75af00">Context</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+
+		<span style="color:#75af00">ids</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">QueryMap</span><span style="color:#111">(</span><span style="color:#d88200">&#34;ids&#34;</span><span style="color:#111">)</span>
+		<span style="color:#75af00">names</span> <span style="color:#f92672">:=</span> <span style="color:#75af00">c</span><span style="color:#111">.</span><span style="color:#75af00">PostFormMap</span><span style="color:#111">(</span><span style="color:#d88200">&#34;names&#34;</span><span style="color:#111">)</span>
+
+		<span style="color:#75af00">fmt</span><span style="color:#111">.</span><span style="color:#75af00">Printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;ids: %v; names: %v&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">ids</span><span style="color:#111">,</span> <span style="color:#75af00">names</span><span style="color:#111">)</span>
+	<span style="color:#111">})</span>
+	<span style="color:#75af00">router</span><span style="color:#111">.</span><span style="color:#75af00">Run</span><span style="color:#111">(</span><span style="color:#d88200">&#34;:8080&#34;</span><span style="color:#111">)</span>
+<span style="color:#111">}</span></code></pre></div><div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ids: map<span style="color:#f92672">[</span>b:hello a:1234<span style="color:#f92672">]</span>, names: map<span style="color:#f92672">[</span>second:tianou first:thinkerou<span style="color:#f92672">]</span></code></pre></div>
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/api-example/jsonp/" title="JSONP"> <i class="fa fa-chevron-left"></i><label>JSONP</label></a>
+    <a class="nav nav-next" href="/api-example/binding-and-validation/" title="Model binding and validation" style="margin-right: 0px;"><label>Model binding and validation</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+  
+
+    <div class="github-link">
+      <a href="https://github.com/gin-gonic/website/edit/master/content/api-example/map-as-querystring-or-postform.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/js/clipboard.min.js"></script>
+
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<script src="/js/featherlight.min.js"></script>
+
+
+
+<script src="/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script src="/js/tabs.js"></script>
+<script>
+  [].slice.call(document.querySelectorAll('.tab-container'))
+    .forEach(function(el) {
+      initializeTabs(el);
+    });
+</script>
+
+
+  </body>
+</html>

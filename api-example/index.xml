@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>API Example on Gin Web Framework</title>
+    <link>https://gin-gonic.com/api-example/</link>
+    <description>Recent content in API Example on Gin Web Framework</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://gin-gonic.com/api-example/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AsciiJSON</title>
+      <link>https://gin-gonic.com/api-example/ascii-json/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/ascii-json/</guid>
+      <description>Using AsciiJSON to Generates ASCII-only JSON with escaped non-ASCII chracters.
+func main() { r := gin.Default() r.GET(&amp;#34;/someJSON&amp;#34;, func(c *gin.Context) { data := map[string]interface{}{ &amp;#34;lang&amp;#34;: &amp;#34;GO语言&amp;#34;, &amp;#34;tag&amp;#34;: &amp;#34;&amp;lt;br&amp;gt;&amp;#34;, } // will output : {&amp;#34;lang&amp;#34;:&amp;#34;GO\u8bed\u8a00&amp;#34;,&amp;#34;tag&amp;#34;:&amp;#34;\u003cbr\u003e&amp;#34;} 	c.AsciiJSON(http.StatusOK, data) }) // Listen and serve on 0.0.0.0:8080 	r.Run(&amp;#34;:8080&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>Bind Uri</title>
+      <link>https://gin-gonic.com/api-example/bind-uri/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/bind-uri/</guid>
+      <description>See the detail information.
+package main import &amp;#34;github.com/gin-gonic/gin&amp;#34; type Person struct { ID string `uri:&amp;#34;id&amp;#34; binding:&amp;#34;required,uuid&amp;#34;` Name string `uri:&amp;#34;name&amp;#34; binding:&amp;#34;required&amp;#34;` } func main() { route := gin.Default() route.GET(&amp;#34;/:name/:id&amp;#34;, func(c *gin.Context) { var person Person if err := c.ShouldBindUri(&amp;amp;person); err != nil { c.JSON(400, gin.H{&amp;#34;msg&amp;#34;: err}) return } c.JSON(200, gin.H{&amp;#34;name&amp;#34;: person.Name, &amp;#34;uuid&amp;#34;: person.ID}) }) route.Run(&amp;#34;:8088&amp;#34;) } Test it with:
+$ curl -v localhost:8088/thinkerou/987fbc97-4bed-5078-9f07-9141ba07c9f3 $ curl -v localhost:8088/thinkerou/not-uuid</description>
+    </item>
+    
+    <item>
+      <title>Bind form-data request with custom struct</title>
+      <link>https://gin-gonic.com/api-example/bind-form-data-request-with-custom-struct/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/bind-form-data-request-with-custom-struct/</guid>
+      <description>The follow example using custom struct:
+type StructA struct { FieldA string `form:&amp;#34;field_a&amp;#34;` } type StructB struct { NestedStruct StructA FieldB string `form:&amp;#34;field_b&amp;#34;` } type StructC struct { NestedStructPointer *StructA FieldC string `form:&amp;#34;field_c&amp;#34;` } type StructD struct { NestedAnonyStruct struct { FieldX string `form:&amp;#34;field_x&amp;#34;` } FieldD string `form:&amp;#34;field_d&amp;#34;` } func GetDataB(c *gin.Context) { var b StructB c.Bind(&amp;amp;b) c.JSON(200, gin.H{ &amp;#34;a&amp;#34;: b.NestedStruct, &amp;#34;b&amp;#34;: b.FieldB, }) } func GetDataC(c *gin.Context) { var b StructC c.</description>
+    </item>
+    
+    <item>
+      <title>Bind html checkboxes</title>
+      <link>https://gin-gonic.com/api-example/bind-html-checkbox/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/bind-html-checkbox/</guid>
+      <description>See the detail information
+main.go
+... type myForm struct { Colors []string `form:&amp;#34;colors[]&amp;#34;` } ... func formHandler(c *gin.Context) { var fakeForm myForm c.ShouldBind(&amp;amp;fakeForm) c.JSON(200, gin.H{&amp;#34;color&amp;#34;: fakeForm.Colors}) } ... form.html
+&amp;lt;form action=&amp;#34;/&amp;#34; method=&amp;#34;POST&amp;#34;&amp;gt; &amp;lt;p&amp;gt;Check some colors&amp;lt;/p&amp;gt; &amp;lt;label for=&amp;#34;red&amp;#34;&amp;gt;Red&amp;lt;/label&amp;gt; &amp;lt;input type=&amp;#34;checkbox&amp;#34; name=&amp;#34;colors[]&amp;#34; value=&amp;#34;red&amp;#34; id=&amp;#34;red&amp;#34;&amp;gt; &amp;lt;label for=&amp;#34;green&amp;#34;&amp;gt;Green&amp;lt;/label&amp;gt; &amp;lt;input type=&amp;#34;checkbox&amp;#34; name=&amp;#34;colors[]&amp;#34; value=&amp;#34;green&amp;#34; id=&amp;#34;green&amp;#34;&amp;gt; &amp;lt;label for=&amp;#34;blue&amp;#34;&amp;gt;Blue&amp;lt;/label&amp;gt; &amp;lt;input type=&amp;#34;checkbox&amp;#34; name=&amp;#34;colors[]&amp;#34; value=&amp;#34;blue&amp;#34; id=&amp;#34;blue&amp;#34;&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34;&amp;gt; &amp;lt;/form&amp;gt; result:</description>
+    </item>
+    
+    <item>
+      <title>Bind query string or post data</title>
+      <link>https://gin-gonic.com/api-example/bind-query-or-post/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/bind-query-or-post/</guid>
+      <description>See the detail information.
+package main import ( &amp;#34;log&amp;#34; &amp;#34;time&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) type Person struct { Name string `form:&amp;#34;name&amp;#34;` Address string `form:&amp;#34;address&amp;#34;` Birthday time.Time `form:&amp;#34;birthday&amp;#34; time_format:&amp;#34;2006-01-02&amp;#34; time_utc:&amp;#34;1&amp;#34;` } func main() { route := gin.Default() route.GET(&amp;#34;/testing&amp;#34;, startPage) route.Run(&amp;#34;:8085&amp;#34;) } func startPage(c *gin.Context) { var person Person // If `GET`, only `Form` binding engine (`query`) used. 	// If `POST`, first checks the `content-type` for `JSON` or `XML`, then uses `Form` (`form-data`). 	// See more at https://github.</description>
+    </item>
+    
+    <item>
+      <title>Build a single binary with templates</title>
+      <link>https://gin-gonic.com/api-example/bind-single-binary-with-template/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/bind-single-binary-with-template/</guid>
+      <description>You can build a server into a single binary containing templates by using go-assets.
+func main() { r := gin.New() t, err := loadTemplate() if err != nil { panic(err) } r.SetHTMLTemplate(t) r.GET(&amp;#34;/&amp;#34;, func(c *gin.Context) { c.HTML(http.StatusOK, &amp;#34;/html/index.tmpl&amp;#34;,nil) }) r.Run(&amp;#34;:8080&amp;#34;) } // loadTemplate loads templates embedded by go-assets-builder func loadTemplate() (*template.Template, error) { t := template.New(&amp;#34;&amp;#34;) for name, file := range Assets.Files { if file.IsDir() || !strings.HasSuffix(name, &amp;#34;.tmpl&amp;#34;) { continue } h, err := ioutil.</description>
+    </item>
+    
+    <item>
+      <title>Custom HTTP configuration</title>
+      <link>https://gin-gonic.com/api-example/custom-http-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/custom-http-config/</guid>
+      <description>Use http.ListenAndServe() directly, like this:
+func main() { router := gin.Default() http.ListenAndServe(&amp;#34;:8080&amp;#34;, router) } or
+func main() { router := gin.Default() s := &amp;amp;http.Server{ Addr: &amp;#34;:8080&amp;#34;, Handler: router, ReadTimeout: 10 * time.Second, WriteTimeout: 10 * time.Second, MaxHeaderBytes: 1 &amp;lt;&amp;lt; 20, } s.ListenAndServe() }</description>
+    </item>
+    
+    <item>
+      <title>Custom Middleware</title>
+      <link>https://gin-gonic.com/api-example/custom-middleware/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/custom-middleware/</guid>
+      <description>func Logger() gin.HandlerFunc { return func(c *gin.Context) { t := time.Now() // Set example variable 	c.Set(&amp;#34;example&amp;#34;, &amp;#34;12345&amp;#34;) // before request  c.Next() // after request 	latency := time.Since(t) log.Print(latency) // access the status we are sending 	status := c.Writer.Status() log.Println(status) } } func main() { r := gin.New() r.Use(Logger()) r.GET(&amp;#34;/test&amp;#34;, func(c *gin.Context) { example := c.MustGet(&amp;#34;example&amp;#34;).(string) // it would print: &amp;#34;12345&amp;#34; 	log.Println(example) }) // Listen and serve on 0.</description>
+    </item>
+    
+    <item>
+      <title>Custom validators</title>
+      <link>https://gin-gonic.com/api-example/custom-validators/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/custom-validators/</guid>
+      <description>It is also possible to register custom validators. See the example code.
+package main import ( &amp;#34;net/http&amp;#34; &amp;#34;reflect&amp;#34; &amp;#34;time&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; &amp;#34;github.com/gin-gonic/gin/binding&amp;#34; &amp;#34;gopkg.in/go-playground/validator.v8&amp;#34; ) // Booking contains binded and validated data. type Booking struct { CheckIn time.Time `form:&amp;#34;check_in&amp;#34; binding:&amp;#34;required,bookabledate&amp;#34; time_format:&amp;#34;2006-01-02&amp;#34;` CheckOut time.Time `form:&amp;#34;check_out&amp;#34; binding:&amp;#34;required,gtfield=CheckIn&amp;#34; time_format:&amp;#34;2006-01-02&amp;#34;` } func bookableDate( v *validator.Validate, topStruct reflect.Value, currentStructOrField reflect.Value, field reflect.Value, fieldType reflect.Type, fieldKind reflect.Kind, param string, ) bool { if date, ok := field.Interface().(time.Time); ok { today := time.</description>
+    </item>
+    
+    <item>
+      <title>Define format for the log of routes</title>
+      <link>https://gin-gonic.com/api-example/define-format-for-the-log-of-routes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/define-format-for-the-log-of-routes/</guid>
+      <description>The default log of routes is:
+[GIN-debug] POST /foo --&amp;gt; main.main.func1 (3 handlers) [GIN-debug] GET /bar --&amp;gt; main.main.func2 (3 handlers) [GIN-debug] GET /status --&amp;gt; main.main.func3 (3 handlers)  If you want to log this information in given format (e.g. JSON, key values or something else), then you can define this format with gin.DebugPrintRouteFunc. In the example below, we log all routes with standard log package but you can use another log tools that suits of your needs.</description>
+    </item>
+    
+    <item>
+      <title>Goroutines inside a middleware</title>
+      <link>https://gin-gonic.com/api-example/goroutines-inside-a-middleware/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/goroutines-inside-a-middleware/</guid>
+      <description>When starting new Goroutines inside a middleware or handler, you SHOULD NOT use the original context inside it, you have to use a read-only copy.
+func main() { r := gin.Default() r.GET(&amp;#34;/long_async&amp;#34;, func(c *gin.Context) { // create copy to be used inside the goroutine 	cCp := c.Copy() go func() { // simulate a long task with time.Sleep(). 5 seconds 	time.Sleep(5 * time.Second) // note that you are using the copied context &amp;#34;cCp&amp;#34;, IMPORTANT 	log.</description>
+    </item>
+    
+    <item>
+      <title>Graceful restart or stop</title>
+      <link>https://gin-gonic.com/api-example/graceful-restart-or-stop/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/graceful-restart-or-stop/</guid>
+      <description>Do you want to graceful restart or stop your web server? There are some ways this can be done.
+We can use fvbock/endless to replace the default ListenAndServe. Refer issue #296 for more details.
+router := gin.Default() router.GET(&amp;#34;/&amp;#34;, handler) // [...] endless.ListenAndServe(&amp;#34;:4242&amp;#34;, router) An alternative to endless:
+ manners: A polite Go HTTP server that shuts down gracefully. graceful: Graceful is a Go package enabling graceful shutdown of an http.Handler server.</description>
+    </item>
+    
+    <item>
+      <title>Grouping routes</title>
+      <link>https://gin-gonic.com/api-example/grouping-routes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/grouping-routes/</guid>
+      <description>func main() { router := gin.Default() // Simple group: v1 	v1 := router.Group(&amp;#34;/v1&amp;#34;) { v1.POST(&amp;#34;/login&amp;#34;, loginEndpoint) v1.POST(&amp;#34;/submit&amp;#34;, submitEndpoint) v1.POST(&amp;#34;/read&amp;#34;, readEndpoint) } // Simple group: v2 	v2 := router.Group(&amp;#34;/v2&amp;#34;) { v2.POST(&amp;#34;/login&amp;#34;, loginEndpoint) v2.POST(&amp;#34;/submit&amp;#34;, submitEndpoint) v2.POST(&amp;#34;/read&amp;#34;, readEndpoint) } router.Run(&amp;#34;:8080&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>HTML rendering</title>
+      <link>https://gin-gonic.com/api-example/html-rendering/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/html-rendering/</guid>
+      <description>Using LoadHTMLGlob() or LoadHTMLFiles()
+func main() { router := gin.Default() router.LoadHTMLGlob(&amp;#34;templates/*&amp;#34;) //router.LoadHTMLFiles(&amp;#34;templates/template1.html&amp;#34;, &amp;#34;templates/template2.html&amp;#34;) 	router.GET(&amp;#34;/index&amp;#34;, func(c *gin.Context) { c.HTML(http.StatusOK, &amp;#34;index.tmpl&amp;#34;, gin.H{ &amp;#34;title&amp;#34;: &amp;#34;Main website&amp;#34;, }) }) router.Run(&amp;#34;:8080&amp;#34;) } templates/index.tmpl
+&amp;lt;html&amp;gt; &amp;lt;h1&amp;gt; {{ .title }} &amp;lt;/h1&amp;gt; &amp;lt;/html&amp;gt; Using templates with same name in different directories
+func main() { router := gin.Default() router.LoadHTMLGlob(&amp;#34;templates/**/*&amp;#34;) router.GET(&amp;#34;/posts/index&amp;#34;, func(c *gin.Context) { c.HTML(http.StatusOK, &amp;#34;posts/index.tmpl&amp;#34;, gin.H{ &amp;#34;title&amp;#34;: &amp;#34;Posts&amp;#34;, }) }) router.GET(&amp;#34;/users/index&amp;#34;, func(c *gin.Context) { c.HTML(http.StatusOK, &amp;#34;users/index.tmpl&amp;#34;, gin.H{ &amp;#34;title&amp;#34;: &amp;#34;Users&amp;#34;, }) }) router.</description>
+    </item>
+    
+    <item>
+      <title>HTTP2 server push</title>
+      <link>https://gin-gonic.com/api-example/http2-server-push/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/http2-server-push/</guid>
+      <description>http.Pusher is supported only go1.8+. See the golang blog for detail information.
+package main import ( &amp;#34;html/template&amp;#34; &amp;#34;log&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) var html = template.Must(template.New(&amp;#34;https&amp;#34;).Parse(` &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;Https Test&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#34;/assets/app.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1 style=&amp;#34;color:red;&amp;#34;&amp;gt;Welcome, Ginner!&amp;lt;/h1&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; `)) func main() { r := gin.Default() r.Static(&amp;#34;/assets&amp;#34;, &amp;#34;./assets&amp;#34;) r.SetHTMLTemplate(html) r.GET(&amp;#34;/&amp;#34;, func(c *gin.Context) { if pusher := c.Writer.Pusher(); pusher != nil { // use pusher.Push() to do server push 	if err := pusher.</description>
+    </item>
+    
+    <item>
+      <title>How to write log file</title>
+      <link>https://gin-gonic.com/api-example/write-log/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/write-log/</guid>
+      <description>func main() { // Disable Console Color, you don&amp;#39;t need console color when writing the logs to file.  gin.DisableConsoleColor() // Logging to a file.  f, _ := os.Create(&amp;#34;gin.log&amp;#34;) gin.DefaultWriter = io.MultiWriter(f) // Use the following code if you need to write the logs to file and console at the same time.  // gin.DefaultWriter = io.MultiWriter(f, os.Stdout)  router := gin.Default() router.GET(&amp;#34;/ping&amp;#34;, func(c *gin.Context) { c.String(200, &amp;#34;pong&amp;#34;) }) router.</description>
+    </item>
+    
+    <item>
+      <title>JSONP</title>
+      <link>https://gin-gonic.com/api-example/jsonp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/jsonp/</guid>
+      <description>Using JSONP to request data from a server in a different domain. Add callback to response body if the query parameter callback exists.
+func main() { r := gin.Default() r.GET(&amp;#34;/JSONP?callback=x&amp;#34;, func(c *gin.Context) { data := map[string]interface{}{ &amp;#34;foo&amp;#34;: &amp;#34;bar&amp;#34;, } //callback is x 	// Will output : x({\&amp;#34;foo\&amp;#34;:\&amp;#34;bar\&amp;#34;}) 	c.JSONP(http.StatusOK, data) }) // Listen and serve on 0.0.0.0:8080 	r.Run(&amp;#34;:8080&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>Map as querystring or postform parameters</title>
+      <link>https://gin-gonic.com/api-example/map-as-querystring-or-postform/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/map-as-querystring-or-postform/</guid>
+      <description>POST /post?ids[a]=1234&amp;amp;ids[b]=hello HTTP/1.1 Content-Type: application/x-www-form-urlencoded names[first]=thinkerou&amp;amp;names[second]=tianoufunc main() { router := gin.Default() router.POST(&amp;#34;/post&amp;#34;, func(c *gin.Context) { ids := c.QueryMap(&amp;#34;ids&amp;#34;) names := c.PostFormMap(&amp;#34;names&amp;#34;) fmt.Printf(&amp;#34;ids: %v; names: %v&amp;#34;, ids, names) }) router.Run(&amp;#34;:8080&amp;#34;) }ids: map[b:hello a:1234], names: map[second:tianou first:thinkerou]</description>
+    </item>
+    
+    <item>
+      <title>Model binding and validation</title>
+      <link>https://gin-gonic.com/api-example/binding-and-validation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/binding-and-validation/</guid>
+      <description>To bind a request body into a type, use model binding. We currently support binding of JSON, XML, YAML and standard form values (foo=bar&amp;amp;boo=baz).
+Gin uses go-playground/validator.v8 for validation. Check the full docs on tags usage here.
+Note that you need to set the corresponding binding tag on all fields you want to bind. For example, when binding from JSON, set json:&amp;quot;fieldname&amp;quot;.
+Also, Gin provides two sets of methods for binding: - Type - Must bind - Methods - Bind, BindJSON, BindXML, BindQuery, BindYAML - Behavior - These methods use MustBindWith under the hood.</description>
+    </item>
+    
+    <item>
+      <title>Multipart/Urlencoded binding</title>
+      <link>https://gin-gonic.com/api-example/multipart-urlencoded-binding/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/multipart-urlencoded-binding/</guid>
+      <description>package main import ( &amp;#34;github.com/gin-gonic/gin&amp;#34; ) type LoginForm struct { User string `form:&amp;#34;user&amp;#34; binding:&amp;#34;required&amp;#34;` Password string `form:&amp;#34;password&amp;#34; binding:&amp;#34;required&amp;#34;` } func main() { router := gin.Default() router.POST(&amp;#34;/login&amp;#34;, func(c *gin.Context) { // you can bind multipart form with explicit binding declaration: 	// c.ShouldBindWith(&amp;amp;form, binding.Form) 	// or you can simply use autobinding with ShouldBind method: 	var form LoginForm // in this case proper binding will be automatically selected 	if c.</description>
+    </item>
+    
+    <item>
+      <title>Multipart/Urlencoded form</title>
+      <link>https://gin-gonic.com/api-example/multipart-urlencoded-form/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/multipart-urlencoded-form/</guid>
+      <description>func main() { router := gin.Default() router.POST(&amp;#34;/form_post&amp;#34;, func(c *gin.Context) { message := c.PostForm(&amp;#34;message&amp;#34;) nick := c.DefaultPostForm(&amp;#34;nick&amp;#34;, &amp;#34;anonymous&amp;#34;) c.JSON(200, gin.H{ &amp;#34;status&amp;#34;: &amp;#34;posted&amp;#34;, &amp;#34;message&amp;#34;: message, &amp;#34;nick&amp;#34;: nick, }) }) router.Run(&amp;#34;:8080&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>Multitemplate</title>
+      <link>https://gin-gonic.com/api-example/multiple-template/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/multiple-template/</guid>
+      <description>Gin allow by default use only one html.Template. Check a multitemplate render for using features like go 1.6 block template.</description>
+    </item>
+    
+    <item>
+      <title>Only bind query string</title>
+      <link>https://gin-gonic.com/api-example/only-bind-query-string/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/only-bind-query-string/</guid>
+      <description>ShouldBindQuery function only binds the query params and not the post data. See the detail information.
+package main import ( &amp;#34;log&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) type Person struct { Name string `form:&amp;#34;name&amp;#34;` Address string `form:&amp;#34;address&amp;#34;` } func main() { route := gin.Default() route.Any(&amp;#34;/testing&amp;#34;, startPage) route.Run(&amp;#34;:8085&amp;#34;) } func startPage(c *gin.Context) { var person Person if c.ShouldBindQuery(&amp;amp;person) == nil { log.Println(&amp;#34;====== Only Bind By Query String ======&amp;#34;) log.Println(person.Name) log.Println(person.Address) } c.String(200, &amp;#34;Success&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>Parameters in path</title>
+      <link>https://gin-gonic.com/api-example/param-in-path/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/param-in-path/</guid>
+      <description>func main() { router := gin.Default() // This handler will match /user/john but will not match /user/ or /user 	router.GET(&amp;#34;/user/:name&amp;#34;, func(c *gin.Context) { name := c.Param(&amp;#34;name&amp;#34;) c.String(http.StatusOK, &amp;#34;Hello %s&amp;#34;, name) }) // However, this one will match /user/john/ and also /user/john/send 	// If no other routers match /user/john, it will redirect to /user/john/ 	router.GET(&amp;#34;/user/:name/*action&amp;#34;, func(c *gin.Context) { name := c.Param(&amp;#34;name&amp;#34;) action := c.Param(&amp;#34;action&amp;#34;) message := name + &amp;#34; is &amp;#34; + action c.</description>
+    </item>
+    
+    <item>
+      <title>PureJSON</title>
+      <link>https://gin-gonic.com/api-example/pure-json/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/pure-json/</guid>
+      <description>Normally, JSON replaces special HTML characters with their unicode entities, e.g. &amp;lt; becomes \u003c. If you want to encode such characters literally, you can use PureJSON instead. This feature is unavailable in Go 1.6 and lower.
+func main() { r := gin.Default() // Serves unicode entities 	r.GET(&amp;#34;/json&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;#34;html&amp;#34;: &amp;#34;&amp;lt;b&amp;gt;Hello, world!&amp;lt;/b&amp;gt;&amp;#34;, }) }) // Serves literal characters 	r.GET(&amp;#34;/purejson&amp;#34;, func(c *gin.Context) { c.PureJSON(200, gin.H{ &amp;#34;html&amp;#34;: &amp;#34;&amp;lt;b&amp;gt;Hello, world!</description>
+    </item>
+    
+    <item>
+      <title>Query and post form</title>
+      <link>https://gin-gonic.com/api-example/query-and-post-form/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/query-and-post-form/</guid>
+      <description>POST /post?id=1234&amp;amp;page=1 HTTP/1.1 Content-Type: application/x-www-form-urlencoded name=manu&amp;amp;message=this_is_greatfunc main() { router := gin.Default() router.POST(&amp;#34;/post&amp;#34;, func(c *gin.Context) { id := c.Query(&amp;#34;id&amp;#34;) page := c.DefaultQuery(&amp;#34;page&amp;#34;, &amp;#34;0&amp;#34;) name := c.PostForm(&amp;#34;name&amp;#34;) message := c.PostForm(&amp;#34;message&amp;#34;) fmt.Printf(&amp;#34;id: %s; page: %s; name: %s; message: %s&amp;#34;, id, page, name, message) }) router.Run(&amp;#34;:8080&amp;#34;) }id: 1234; page: 1; name: manu; message: this_is_great</description>
+    </item>
+    
+    <item>
+      <title>Query string parameters</title>
+      <link>https://gin-gonic.com/api-example/querystring-param/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/querystring-param/</guid>
+      <description>func main() { router := gin.Default() // Query string parameters are parsed using the existing underlying request object. 	// The request responds to a url matching: /welcome?firstname=Jane&amp;amp;lastname=Doe 	router.GET(&amp;#34;/welcome&amp;#34;, func(c *gin.Context) { firstname := c.DefaultQuery(&amp;#34;firstname&amp;#34;, &amp;#34;Guest&amp;#34;) lastname := c.Query(&amp;#34;lastname&amp;#34;) // shortcut for c.Request.URL.Query().Get(&amp;#34;lastname&amp;#34;)  c.String(http.StatusOK, &amp;#34;Hello %s %s&amp;#34;, firstname, lastname) }) router.Run(&amp;#34;:8080&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>Redirects</title>
+      <link>https://gin-gonic.com/api-example/redirects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/redirects/</guid>
+      <description>Issuing a HTTP redirect is easy. Both internal and external locations are supported.
+r.GET(&amp;#34;/test&amp;#34;, func(c *gin.Context) { c.Redirect(http.StatusMovedPermanently, &amp;#34;http://www.google.com/&amp;#34;) }) Issuing a Router redirect, use HandleContext like below.
+r.GET(&amp;#34;/test&amp;#34;, func(c *gin.Context) { c.Request.URL.Path = &amp;#34;/test2&amp;#34; r.HandleContext(c) }) r.GET(&amp;#34;/test2&amp;#34;, func(c *gin.Context) { c.JSON(200, gin.H{&amp;#34;hello&amp;#34;: &amp;#34;world&amp;#34;}) })</description>
+    </item>
+    
+    <item>
+      <title>Run multiple service</title>
+      <link>https://gin-gonic.com/api-example/run-multiple-service/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/run-multiple-service/</guid>
+      <description>See the question and try the following example:
+package main import ( &amp;#34;log&amp;#34; &amp;#34;net/http&amp;#34; &amp;#34;time&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; &amp;#34;golang.org/x/sync/errgroup&amp;#34; ) var ( g errgroup.Group ) func router01() http.Handler { e := gin.New() e.Use(gin.Recovery()) e.GET(&amp;#34;/&amp;#34;, func(c *gin.Context) { c.JSON( http.StatusOK, gin.H{ &amp;#34;code&amp;#34;: http.StatusOK, &amp;#34;error&amp;#34;: &amp;#34;Welcome server 01&amp;#34;, }, ) }) return e } func router02() http.Handler { e := gin.New() e.Use(gin.Recovery()) e.GET(&amp;#34;/&amp;#34;, func(c *gin.Context) { c.JSON( http.StatusOK, gin.H{ &amp;#34;code&amp;#34;: http.StatusOK, &amp;#34;error&amp;#34;: &amp;#34;Welcome server 02&amp;#34;, }, ) }) return e } func main() { server01 := &amp;amp;http.</description>
+    </item>
+    
+    <item>
+      <title>SecureJSON</title>
+      <link>https://gin-gonic.com/api-example/secure-json/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/secure-json/</guid>
+      <description>Using SecureJSON to prevent json hijacking. Default prepends &amp;quot;while(1),&amp;quot; to response body if the given struct is array values.
+func main() { r := gin.Default() // You can also use your own secure json prefix 	// r.SecureJsonPrefix(&amp;#34;)]}&amp;#39;,\n&amp;#34;)  r.GET(&amp;#34;/someJSON&amp;#34;, func(c *gin.Context) { names := []string{&amp;#34;lena&amp;#34;, &amp;#34;austin&amp;#34;, &amp;#34;foo&amp;#34;} // Will output : while(1);[&amp;#34;lena&amp;#34;,&amp;#34;austin&amp;#34;,&amp;#34;foo&amp;#34;] 	c.SecureJSON(http.StatusOK, names) }) // Listen and serve on 0.0.0.0:8080 	r.Run(&amp;#34;:8080&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>Serving data from reader</title>
+      <link>https://gin-gonic.com/api-example/serving-data-from-reader/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/serving-data-from-reader/</guid>
+      <description>func main() { router := gin.Default() router.GET(&amp;#34;/someDataFromReader&amp;#34;, func(c *gin.Context) { response, err := http.Get(&amp;#34;https://raw.githubusercontent.com/gin-gonic/logo/master/color.png&amp;#34;) if err != nil || response.StatusCode != http.StatusOK { c.Status(http.StatusServiceUnavailable) return } reader := response.Body contentLength := response.ContentLength contentType := response.Header.Get(&amp;#34;Content-Type&amp;#34;) extraHeaders := map[string]string{ &amp;#34;Content-Disposition&amp;#34;: `attachment; filename=&amp;#34;gopher.png&amp;#34;`, } c.DataFromReader(http.StatusOK, contentLength, contentType, reader, extraHeaders) }) router.Run(&amp;#34;:8080&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>Serving static files</title>
+      <link>https://gin-gonic.com/api-example/serving-static-files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/serving-static-files/</guid>
+      <description>func main() { router := gin.Default() router.Static(&amp;#34;/assets&amp;#34;, &amp;#34;./assets&amp;#34;) router.StaticFS(&amp;#34;/more_static&amp;#34;, http.Dir(&amp;#34;my_file_system&amp;#34;)) router.StaticFile(&amp;#34;/favicon.ico&amp;#34;, &amp;#34;./resources/favicon.ico&amp;#34;) // Listen and serve on 0.0.0.0:8080 	router.Run(&amp;#34;:8080&amp;#34;) }</description>
+    </item>
+    
+    <item>
+      <title>Set and get a cookie</title>
+      <link>https://gin-gonic.com/api-example/cookie/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/cookie/</guid>
+      <description>import ( &amp;#34;fmt&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) func main() { router := gin.Default() router.GET(&amp;#34;/cookie&amp;#34;, func(c *gin.Context) { cookie, err := c.Cookie(&amp;#34;gin_cookie&amp;#34;) if err != nil { cookie = &amp;#34;NotSet&amp;#34; c.SetCookie(&amp;#34;gin_cookie&amp;#34;, &amp;#34;test&amp;#34;, 3600, &amp;#34;/&amp;#34;, &amp;#34;localhost&amp;#34;, false, true) } fmt.Printf(&amp;#34;Cookie value: %s \n&amp;#34;, cookie) }) router.Run() }</description>
+    </item>
+    
+    <item>
+      <title>Support Let&#39;s Encrypt</title>
+      <link>https://gin-gonic.com/api-example/support-lets-encrypt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/support-lets-encrypt/</guid>
+      <description>example for 1-line LetsEncrypt HTTPS servers.
+package main import ( &amp;#34;log&amp;#34; &amp;#34;github.com/gin-gonic/autotls&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; ) func main() { r := gin.Default() // Ping handler 	r.GET(&amp;#34;/ping&amp;#34;, func(c *gin.Context) { c.String(200, &amp;#34;pong&amp;#34;) }) log.Fatal(autotls.Run(r, &amp;#34;example1.com&amp;#34;, &amp;#34;example2.com&amp;#34;)) } example for custom autocert manager.
+package main import ( &amp;#34;log&amp;#34; &amp;#34;github.com/gin-gonic/autotls&amp;#34; &amp;#34;github.com/gin-gonic/gin&amp;#34; &amp;#34;golang.org/x/crypto/acme/autocert&amp;#34; ) func main() { r := gin.Default() // Ping handler 	r.GET(&amp;#34;/ping&amp;#34;, func(c *gin.Context) { c.String(200, &amp;#34;pong&amp;#34;) }) m := autocert.Manager{ Prompt: autocert.</description>
+    </item>
+    
+    <item>
+      <title>Try to bind body into different structs</title>
+      <link>https://gin-gonic.com/api-example/bind-body-into-dirrerent-structs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/bind-body-into-dirrerent-structs/</guid>
+      <description>The normal methods for binding request body consumes c.Request.Body and they cannot be called multiple times.
+type formA struct { Foo string `json:&amp;#34;foo&amp;#34; xml:&amp;#34;foo&amp;#34; binding:&amp;#34;required&amp;#34;` } type formB struct { Bar string `json:&amp;#34;bar&amp;#34; xml:&amp;#34;bar&amp;#34; binding:&amp;#34;required&amp;#34;` } func SomeHandler(c *gin.Context) { objA := formA{} objB := formB{} // This c.ShouldBind consumes c.Request.Body and it cannot be reused.  if errA := c.ShouldBind(&amp;amp;objA); errA == nil { c.String(http.StatusOK, `the body should be formA`) // Always an error is occurred by this because c.</description>
+    </item>
+    
+    <item>
+      <title>Using BasicAuth middleware</title>
+      <link>https://gin-gonic.com/api-example/using-basicauth-middleware/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/using-basicauth-middleware/</guid>
+      <description>// simulate some private data var secrets = gin.H{ &amp;#34;foo&amp;#34;: gin.H{&amp;#34;email&amp;#34;: &amp;#34;foo@bar.com&amp;#34;, &amp;#34;phone&amp;#34;: &amp;#34;123433&amp;#34;}, &amp;#34;austin&amp;#34;: gin.H{&amp;#34;email&amp;#34;: &amp;#34;austin@example.com&amp;#34;, &amp;#34;phone&amp;#34;: &amp;#34;666&amp;#34;}, &amp;#34;lena&amp;#34;: gin.H{&amp;#34;email&amp;#34;: &amp;#34;lena@guapa.com&amp;#34;, &amp;#34;phone&amp;#34;: &amp;#34;523443&amp;#34;}, } func main() { r := gin.Default() // Group using gin.BasicAuth() middleware 	// gin.Accounts is a shortcut for map[string]string 	authorized := r.Group(&amp;#34;/admin&amp;#34;, gin.BasicAuth(gin.Accounts{ &amp;#34;foo&amp;#34;: &amp;#34;bar&amp;#34;, &amp;#34;austin&amp;#34;: &amp;#34;1234&amp;#34;, &amp;#34;lena&amp;#34;: &amp;#34;hello2&amp;#34;, &amp;#34;manu&amp;#34;: &amp;#34;4321&amp;#34;, })) // /admin/secrets endpoint 	// hit &amp;#34;localhost:8080/admin/secrets 	authorized.GET(&amp;#34;/secrets&amp;#34;, func(c *gin.Context) { // get user, it was set by the BasicAuth middleware 	user := c.</description>
+    </item>
+    
+    <item>
+      <title>Using HTTP method</title>
+      <link>https://gin-gonic.com/api-example/http-method/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/http-method/</guid>
+      <description>func main() { // Disable Console Color 	// gin.DisableConsoleColor()  // Creates a gin router with default middleware: 	// logger and recovery (crash-free) middleware 	router := gin.Default() router.GET(&amp;#34;/someGet&amp;#34;, getting) router.POST(&amp;#34;/somePost&amp;#34;, posting) router.PUT(&amp;#34;/somePut&amp;#34;, putting) router.DELETE(&amp;#34;/someDelete&amp;#34;, deleting) router.PATCH(&amp;#34;/somePatch&amp;#34;, patching) router.HEAD(&amp;#34;/someHead&amp;#34;, head) router.OPTIONS(&amp;#34;/someOptions&amp;#34;, options) // By default it serves on :8080 unless a 	// PORT environment variable was defined. 	router.Run() // router.Run(&amp;#34;:3000&amp;#34;) for a hard coded port }</description>
+    </item>
+    
+    <item>
+      <title>Using middleware</title>
+      <link>https://gin-gonic.com/api-example/using-middleware/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/using-middleware/</guid>
+      <description>func main() { // Creates a router without any middleware by default 	r := gin.New() // Global middleware 	// Logger middleware will write the logs to gin.DefaultWriter even if you set with GIN_MODE=release. 	// By default gin.DefaultWriter = os.Stdout 	r.Use(gin.Logger()) // Recovery middleware recovers from any panics and writes a 500 if there was one. 	r.Use(gin.Recovery()) // Per route middleware, you can add as many as you desire.</description>
+    </item>
+    
+    <item>
+      <title>Without middleware by default</title>
+      <link>https://gin-gonic.com/api-example/without-middleware/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/without-middleware/</guid>
+      <description>Use
+r := gin.New() instead of
+// Default With the Logger and Recovery middleware already attached r := gin.</description>
+    </item>
+    
+    <item>
+      <title>XML/JSON/YAML/ProtoBuf rendering</title>
+      <link>https://gin-gonic.com/api-example/rendering/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gin-gonic.com/api-example/rendering/</guid>
+      <description>func main() { r := gin.Default() // gin.H is a shortcut for map[string]interface{} 	r.GET(&amp;#34;/someJSON&amp;#34;, func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{&amp;#34;message&amp;#34;: &amp;#34;hey&amp;#34;, &amp;#34;status&amp;#34;: http.StatusOK}) }) r.GET(&amp;#34;/moreJSON&amp;#34;, func(c *gin.Context) { // You also can use a struct 	var msg struct { Name string `json:&amp;#34;user&amp;#34;` Message string Number int } msg.Name = &amp;#34;Lena&amp;#34; msg.Message = &amp;#34;hey&amp;#34; msg.Number = 123 // Note that msg.Name becomes &amp;#34;user&amp;#34; in the JSON 	// Will output : {&amp;#34;user&amp;#34;: &amp;#34;Lena&amp;#34;, &amp;#34;Message&amp;#34;: &amp;#34;hey&amp;#34;, &amp;#34;Number&amp;#34;: 123} 	c.</description>
+    </item>
+    
+  </channel>
+</rss>

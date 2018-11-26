@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://gin-gonic.com/introduction/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/quickstart/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/benchmarks/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/features/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/jsoniter/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/testing/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/users/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/_footer/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/_header/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/ascii-json/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/bind-uri/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/bind-form-data-request-with-custom-struct/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/bind-html-checkbox/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/bind-query-or-post/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/bind-single-binary-with-template/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/custom-http-config/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/custom-middleware/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/custom-validators/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/define-format-for-the-log-of-routes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/goroutines-inside-a-middleware/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/graceful-restart-or-stop/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/grouping-routes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/html-rendering/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/http2-server-push/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/write-log/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/jsonp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/map-as-querystring-or-postform/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/binding-and-validation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/multipart-urlencoded-binding/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/multipart-urlencoded-form/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/upload-file/multiple-file/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/multiple-template/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/only-bind-query-string/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/param-in-path/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/pure-json/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/query-and-post-form/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/querystring-param/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/redirects/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/run-multiple-service/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/secure-json/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/serving-data-from-reader/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/serving-static-files/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/cookie/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/upload-file/single-file/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/support-lets-encrypt/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/bind-body-into-dirrerent-structs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/upload-file/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/using-basicauth-middleware/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/http-method/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/using-middleware/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/without-middleware/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/api-example/rendering/</loc>
+  </url>
+  
+  <url>
+    <loc>https://gin-gonic.com/cn/</loc>
+  </url>
+  
+</urlset>
